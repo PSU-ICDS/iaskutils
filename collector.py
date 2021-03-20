@@ -4,88 +4,15 @@ import shutil
 import glob
 import click
 from progress.bar import Bar
-import tarfile
-from zipfile import ZipFile
-from termcolor import cprint, colored
+from utils.special_print import print_good
+from utils.special_print import print_bad
+from utils.special_print import print_info
+from utils.special_print import important_info
+from utils.compression import Compression
 
 # Global variables
 home_env_var = os.getenv('HOME')
 user_name = os.getenv('USER')
-
-
-class Compression:
-    def __init__(self, directory, user_info, output_directory):
-        self.directory = directory
-        self.user_info = user_info
-        self.output_directory = output_directory
-
-    def tozip(self):
-        file_paths = self.__getallfilepaths()
-        with ZipFile("{}.zip".format(self.user_info), "w") as zipfile:
-            bar = Bar("Compressing files into zip archive", max=len(file_paths))
-            for file in file_paths:
-                zipfile.write(file)
-                bar.next()
-
-            bar.finish()
-
-    def togzip(self):
-        file_paths = self.__getallfilepaths()
-        with tarfile.open("{}.tar.gz".format(self.user_info), "w:gz") as tarball:
-            bar = Bar("Compressing files into tar.gz archive", max=len(file_paths))
-            for file in file_paths:
-                tarball.add(file)
-                bar.next()
-
-            bar.finish()
-
-    def tobzip(self):
-        file_paths = self.__getallfilepaths()
-        with tarfile.open("{}.tar.bz2".format(self.user_info), "w:bz2") as tarball:
-            bar = Bar("Compressing files into tar.bz2 archive", max=len(file_paths))
-            for file in file_paths:
-                tarball.add(file)
-                bar.next()
-
-            bar.finish()
-
-    def toxz(self):
-        file_paths = self.__getallfilepaths()
-        with tarfile.open("{}.tar.xz".format(self.user_info), "w:xz") as tarball:
-            bar = Bar("Compressing files into tar.xz archive", max=len(file_paths))
-            for file in file_paths:
-                tarball.add(file)
-                bar.next()
-
-            bar.finish()
-
-    def totar(self):
-        file_paths = self.__getallfilepaths()
-        with tarfile.open("{}.tar".format(self.user_info), "w") as tarball:
-            bar = Bar("Compressing files into tar archive", max=len(file_paths))
-            for file in file_paths:
-                tarball.add(file)
-                bar.next()
-
-            bar.finish()
-
-    # Collect file paths to all files in $USER_info
-    def __getallfilepaths(self):
-        file_paths = []
-
-        for root, directories, files in os.walk(self.directory):
-            for filename in files:
-                filepath = os.path.join(root, filename)
-                file_paths.append(filepath)
-
-        return file_paths
-
-    @property
-    def complete(self):
-        return important_info("Please go to Files > Home Directory from \n"
-                              "https://portal.aci.ics.psu.edu/, download the created \n"
-                              "archive located in {}, and mail the archive \n"
-                              "to iask@ics.psu.edu".format(self.output_directory))
 
 
 # Open file and write its output in the same directory
@@ -98,15 +25,8 @@ def readfile(path, filename):
     fout.close()
 
 
-# Special print functions
-print_good = lambda x: cprint(x, "green")
-print_info = lambda x: cprint(x, "blue")
-print_bad = lambda x: cprint(x, "red")
-important_info = lambda x: colored(x, "blue", attrs=["bold"])
-
-
 @click.command()
-@click.option("-v", "--version", is_flag=True, help="Print version info.")
+@click.option("-V", "--version", is_flag=True, help="Print version info.")
 @click.option("--license", is_flag=True, help="Print licensing info.")
 @click.option("-c", "--compression", type=click.Choice(["gzip", "bz2", "xz", "tar", "zip"]),
               default="zip", help="Compression algorithm to use (default: zip).")
@@ -115,25 +35,26 @@ important_info = lambda x: colored(x, "blue", attrs=["bold"])
 def collector(version, license, compression, directory):
     """collector: A simple script to collect information about your environment."""
     if version:
-        click.echo("collector v1.1  Copyright (C) 2020  Jason C. Nucciarone \n\n"
+        click.echo("collector v1.1  Copyright (C) 2021  Jason C. Nucciarone \n\n"
                    "This program comes with ABSOLUTELY NO WARRANTY; \n"
                    "for more details type \"collector --license\". This is free software, \n"
                    "and you are welcome to redistribute it under certain conditions; \n"
-                   "type \"collector --license\" for more details.")
+                   "go to https://www.gnu.org/licenses/licenses.html for more details.")
 
     elif license:
         click.echo("""collector: A simple script to collect information about your environment.\n
-    Copyright (C) 2020  Jason C. Nucciarone
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
+    
+Copyright (C) 2021  Jason C. Nucciarone
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
 
     else:
         # Change into directory specified by user to create $USER_info
