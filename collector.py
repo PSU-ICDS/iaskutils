@@ -43,8 +43,8 @@ def collector(version, license, compression, directory):
 
     elif license:
         click.echo("""collector: A simple script to collect information about your environment.\n
-    
-Copyright (C) 2021  Jason C. Nucciarone
+    Copyright (C) 2021  Jason C. Nucciarone
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
