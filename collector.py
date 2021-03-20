@@ -64,7 +64,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
         except OSError:
             print_bad("Something went wrong when trying to change into {} ".format(directory) +
                       "Please contact i-ASK center at iask@ics.psu.edu.")
-            exit()
+            return
 
         # Create $USER_info directory and then change into it
         user_info = "{}_info".format(user_name)
