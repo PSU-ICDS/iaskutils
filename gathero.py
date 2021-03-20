@@ -4,18 +4,15 @@ import multiprocessing
 import shutil
 import click
 from progress.bar import Bar
-import tarfile
-from zipfile import ZipFile
-from termcolor import cprint, colored
+from utils.special_print import print_good
+from utils.special_print import print_bad
+from utils.special_print import print_info
+from utils.special_print import important_info
+from utils.special_print import printrichtext
+from utils.compression import Compression
 
 # Global variables
 home_env_var = os.getenv('HOME')
-
-# Special print functions
-print_good = lambda x: cprint(x, "green", attrs=["bold"])
-print_info = lambda x: cprint(x, "blue")
-print_bad = lambda x: cprint(x, "red")
-important_info = lambda x: colored(x, "blue", attrs=["bold"])
 
 
 def checkjob(checkjob_path, job_id, root_dir):
@@ -32,7 +29,7 @@ def checkjob(checkjob_path, job_id, root_dir):
 
 
 @click.command()
-@click.option("-v", "--version", is_flag=True, help="Print version info.")
+@click.option("-V", "--version", is_flag=True, help="Print version info.")
 @click.option("--license", is_flag=True, help="Print licensing info.")
 @click.argument("job", default=None, nargs=-1)
 @click.option("-n", "--name", default="gathero_output", help="Name of output directory and archive (default: "
@@ -44,25 +41,26 @@ def checkjob(checkjob_path, job_id, root_dir):
 def gathero(version, license, job, name, compression, directory):
     """gathero: A script to collect essential information about a user's job(s)."""
     if version:
-        click.echo("gathero v1.2  Copyright (C) 2020  Jason C. Nucciarone \n\n"
+        click.echo("gathero v1.2  Copyright (C) 2021  Jason C. Nucciarone \n\n"
                    "This program comes with ABSOLUTELY NO WARRANTY; \n"
                    "for more details type \"gathero --license\". This is free software, \n"
                    "and you are welcome to redistribute it under certain conditions; \n"
-                   "type \"gathero --license\" for more details.")
+                   "go to https://www.gnu.org/licenses/licenses.html for more details.")
 
     elif license:
         click.echo("""gathero: A script to collect essential information about a user's job(s).\n
-    Copyright (C) 2020  Jason C. Nucciarone
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
+    Copyright (C) 2021  Jason C. Nucciarone
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
 
     else:
         # Change into the directory specified by the user to create $NAME
@@ -72,7 +70,7 @@ def gathero(version, license, job, name, compression, directory):
         except OSError:
             print_bad("Something went wrong when trying to change into {} ".format(directory) +
                       "Please contact i-ASK center at iask@ics.psu.edu.")
-            exit()
+            return
 
         # Create $NAME directory and then move into it.
         # Also save path above output dir because we
@@ -93,9 +91,9 @@ def gathero(version, license, job, name, compression, directory):
         # If the user specified no job ids on the command line
         if job is None:
             print_bad("No job ID found. Please enter job ID(s). \n"
-                      "Use \"gathero -h\" or contact the i-ASK center \n"
+                      "Use \"gathero --help\" or contact the i-ASK center \n"
                       "at iask@ics.psu.edu if you need help.")
-            exit()
+            return
 
         job_list = []
         for jobs in job:
