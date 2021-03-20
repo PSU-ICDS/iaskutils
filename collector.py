@@ -219,11 +219,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
         else:
             print_bad("There was an issue compressing your files! Please contact the i-ASK center at " +
                       "iask@ics.psu.edu")
-            exit()
+            return
 
         # Wrap up and clean up
         print("\n" + archive.complete)
         shutil.rmtree(output_dir)
+        return
 
 
 if __name__ == "__main__":
