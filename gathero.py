@@ -209,7 +209,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
                 fout.write(str(mam_list_funds.stdout))
 
         # Compress the gathero_output directory
-        os.chdir(dir_above_output)
+        os.chdir(above_tmp_dir)
         compress_dir = above_tmp_dir.split("/")
         archive = Compression(compress_dir[-1], name, above_tmp_dir)
 
