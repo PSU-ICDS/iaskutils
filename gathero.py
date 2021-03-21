@@ -35,7 +35,7 @@ def checkjob_xml(checkjob_path, job_id, root_dir):
     checkjob_out = subprocess.run(["sudo", "{}".format(checkjob_path), "{}".format(job_id), "-v", "--timeout=300", "--xml"],
                                   capture_output=True, text=True)
     os.chdir(root_dir)
-    fout = open("{}.xml", "wt")
+    fout = open("{}.xml".format(job_id), "wt")
     fout.write(str(checkjob_out.stdout))
     fout.close()
 
