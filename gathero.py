@@ -147,6 +147,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
                 print_bad("Something went wrong collecting allocation and user info. \n"
                           "Please contact i-ASK center for help!")
 
+        # Block until process 2 jobs are done
+        for process in process_list_2:
+            process.join()
+
         # After XML files have been collected, pull allocation name and user info
         xml_files = glob.glob("*.xml")
         alloc_name = list()
