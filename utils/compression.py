@@ -81,8 +81,8 @@ class Compression:
     @property
     def complete(self):
         """Simple property to tell user how they can download created archives."""
-        return important_info("\nPlease go to Files > Home Directory from \n"
-                              "https://portal.aci.ics.psu.edu/, download the created \n"
-                              "archive located in {}, and mail the archive \n"
-                              "to iask@ics.psu.edu".format(self.output_directory))
+        important_info("\nPlease go to Files > Home Directory from \n"
+                        "https://portal.aci.ics.psu.edu/, download the created \n"
+                        "archive located in {}, and mail the archive \n"
+                        "to iask@ics.psu.edu".format(self.output_directory))
 

@@ -222,6 +222,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
             return
 
         # Wrap up and clean up
+        archive.complete
         shutil.rmtree(output_dir)
         return
 
