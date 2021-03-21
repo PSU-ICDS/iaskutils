@@ -160,11 +160,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
             doc = minidom.parse(xml_file)
             data = doc.getElementsByTagName("job")
 
-            if data.attributes['Account'].value not in alloc_name:
-                alloc_name.append(data.attributes['Account'].value)
-            
-            if data.attributes['User'].value not in user_id:
-                user_id.append(data.attributes['User'].value)
+            for datum in data:
+                if datum.attributes['Account'].value not in alloc_name:
+                    alloc_name.append(data.attributes['Account'].value)
+                
+                if datum.attributes['User'].value not in user_id:
+                    user_id.append(data.attributes['User'].value)
 
         # Process allocation and user info
         os.chdir(above_tmp_dir)
