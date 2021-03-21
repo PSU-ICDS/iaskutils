@@ -162,10 +162,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
 
             for datum in data:
                 if datum.attributes['Account'].value not in alloc_name:
-                    alloc_name.append(data.attributes['Account'].value)
+                    alloc_name.append(datum.attributes['Account'].value)
                 
                 if datum.attributes['User'].value not in user_id:
-                    user_id.append(data.attributes['User'].value)
+                    user_id.append(datum.attributes['User'].value)
 
         # Process allocation and user info
         os.chdir(above_tmp_dir)
