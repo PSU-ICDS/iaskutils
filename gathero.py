@@ -25,7 +25,7 @@ def checkjob(checkjob_path, job_id, root_dir):
 
     # Change into output directory and create output file
     os.chdir(root_dir)
-    fout = open("{}_checkjob_output.txt".format(job_id), "wt")
+    fout = open("{}_checkjob-output.txt".format(job_id), "wt")
     fout.write(str(checkjob_out.stdout))
     fout.close()
 
