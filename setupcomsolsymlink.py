@@ -11,7 +11,7 @@ from utils.special_print import important_info
 @click.option("-V", "--version", is_flag=True, help="Print version info.")
 @click.option("--license", is_flag=True, help="Print licensing info.")
 def main(version, license):
-    """setupcomsolsymlink: A simple script to relocate the COMSOL cache to work."""
+    """setupcomsolsymlink: A simple script to relocate the COMSOL cache to the work directory."""
     if version:
         click.echo("setupcomsolsymlink v1.1  Copyright (C) 2021  Jason C. Nucciarone \n\n"
                    "This program comes with ABSOLUTELY NO WARRANTY; \n"
@@ -20,7 +20,7 @@ def main(version, license):
                    "go to https://www.gnu.org/licenses/licenses.html for more details.")
 
     elif license:
-        click.echo("""setupcomsolsymlink: A simple script to reestablish the work and scratch directory symlinks in a user's home directory.\n
+        click.echo("""setupcomsolsymlink: A simple script to relocate the COMSOL cache to the work directory.\n
     Copyright (C) 2021  Jason C. Nucciarone
 
 This program is free software: you can redistribute it and/or modify
