@@ -24,6 +24,7 @@ def important_info(stdin):
     console = Console()
     console.print("[bold deep_sky_blue1]{}[/bold deep_sky_blue1]".format(stdin))
 
+
 def printrichtext(stdin):
     """Print text with only certain parts formatted by Rich API."""
     console = Console()
