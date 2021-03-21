@@ -210,7 +210,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
 
         # Compress the gathero_output directory
         os.chdir(dir_above_output)
-        archive = Compression(above_tmp_dir, name, above_tmp_dir)
+        compress_dir = above_tmp_dir.split("/")
+        archive = Compression(compress_dir[-1], name, above_tmp_dir)
 
         if compression == "gzip":
             archive.togzip()
