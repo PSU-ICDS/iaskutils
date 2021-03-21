@@ -209,24 +209,29 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
                 fout.write(str(mam_list_funds.stdout))
 
         # Compress the gathero_output directory
-        os.chdir(above_tmp_dir)
+        os.chdir(dir_above_output)
         compress_dir = above_tmp_dir.split("/")
         archive = Compression(compress_dir[-1], name, above_tmp_dir)
 
         if compression == "gzip":
             archive.togzip()
+            shutil.move("{}/{}.tar.gz".format(dir_above_output, name), "{}/{}.tar.gz".format(above_tmp_dir, name))
 
         elif compression == "bz2":
             archive.tobzip()
+            shutil.move("{}/{}.tar.bz2".format(dir_above_output, name), "{}/{}.tar.bz2".format(above_tmp_dir, name))
 
         elif compression == "xz":
             archive.toxz()
+            shutil.move("{}/{}.tar.xz".format(dir_above_output, name), "{}/{}.tar.xz".format(above_tmp_dir, name))
 
         elif compression == "tar":
             archive.totar()
+            shutil.move("{}/{}.tar".format(dir_above_output, name), "{}/{}.tar".format(above_tmp_dir, name))
 
         elif compression == "zip":
             archive.tozip()
+            shutil.move("{}/{}.zip".format(dir_above_output, name), "{}/{}.zip".format(above_tmp_dir, name))
 
         else:
             print_bad("There was an issue compressing your files! Please contact the i-ASK center at " +
