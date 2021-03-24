@@ -12,7 +12,7 @@
 
 Welcome to the **iaskutils** GitHub repository!
 
-![Demonstration](share/gifs/demo.gif)
+![Demonstration](./share/gifs/demo.gif)
 
 You might be asking yourself, "what is a iaskutils collection?" Well, it is just a collection of various scripts and tools used by the [Penn State ICDS i-ASK helpdesk](https://www.icds.psu.edu/computing-services/support/) to help the users of the Roar supercomputer. The iaskutils collection is ever growing, but here is a list of the tools currently available in the collection:
 
