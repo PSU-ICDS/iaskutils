@@ -10,9 +10,26 @@
 
 # Overview
 
+Welcome to the **iaskutils** GitHub repository!
+
 ![Demonstration](share/gifs/demo.gif)
 
-A collection of various scripts and tools used by the Penn State ICDS i-ASK helpdesk to help the users of the Roar supercomputer
+You might be asking yourself, "what is a iaskutils collection?" Well, it is just a collection of various scripts and tools used by the [Penn State ICDS i-ASK helpdesk](https://www.icds.psu.edu/computing-services/support/) to help the users of the Roar supercomputer. The iaskutils collection is ever growing, but here is a list of the tools currently available in the collection:
+
+* **`collector`:** A simple script to collect information about your environment.
+* **`gathero`:** A script to collect essential information about a user's job(s).
+* **`relinkworkscratch`:** A simple script to reestablish the work and scratch directory symlinks in a user's home directory.
+* **`setupcomsolsymlink`:** A simple script to relocate the COMSOL cache to the work directory.
+* **`setupcondasymlink`:** A simple script to relocate the conda cache to the work directory.
+
+To get access to the collection on the Roar cluster, you simply just need to use the following commands:
+
+```bash
+$ module use /gpfs/group/dml129/default/sw7/modules
+$ module load iaskutils/1.1
+```
+
+Now let's get onto the meat of this README!
 
 # Installation
 
