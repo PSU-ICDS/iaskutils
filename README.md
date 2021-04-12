@@ -129,7 +129,7 @@ The nice thing about the iaskutils collection is that each of the scripts/tools 
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.1
+$ module load iaskutils/1.2
 $ man gathero
 ```
 
