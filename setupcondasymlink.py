@@ -5,34 +5,22 @@ from utils.special_print import print_good
 from utils.special_print import print_bad
 from utils.special_print import print_info
 from utils.special_print import important_info
+from utils.special_print import printrichtext
+from utils.print_license import licenseheader
+from utils.print_license import licensebody
+from utils.verifylocale import verifylocale
 
 
 @click.command()
 @click.option("-V", "--version", is_flag=True, help="Print version info.")
 @click.option("--license", is_flag=True, help="Print licensing info.")
-def main(version, license):
+def setupcondasymlink(version, license):
     """setupcondasymlink: A simple script to relocate the conda cache to the work directory."""
     if version:
-        click.echo("setupcondasymlink v1.1  Copyright (C) 2021  Jason C. Nucciarone \n\n"
-                   "This program comes with ABSOLUTELY NO WARRANTY; \n"
-                   "for more details type \"setupcondasymlink --license\". This is free software, \n"
-                   "and you are welcome to redistribute it under certain conditions; \n"
-                   "go to https://www.gnu.org/licenses/licenses.html for more details.")
+        licenseheader("setupcondasymlink v1.2")
 
     elif license:
-        click.echo("""setupcondasymlink: A simple script to relocate the conda cache to the work directory.\n
-    Copyright (C) 2021  Jason C. Nucciarone
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
+        licensebody("setupcondasymlink: A simple script to relocate the conda cache to the work directory.")
 
     else:
         home_env_var = os.getenv('HOME')
@@ -57,4 +45,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
         return
 
 if __name__ == "__main__":
-    main()
+    out, err = verifylocale()
+    if err != None:
+        printrichtext("Uh oh. Looks like the UTF-8 locale is not supported on your system! " +
+                      "Please try using [bold blue]locale-gen en_US.UTF-8[/bold blue] before continuing.")
+    
+    else:
+        setupcondasymlink()
