@@ -1,5 +1,11 @@
-MIT License
+def licenseheader(program):
+    """Print out programs license header."""
+    print("{}  Copyright (c) 2021 The Pennsylvania State University Institute for Computational and Data Sciences \n".format(program))
 
+
+def licensebody(description):
+    """Print out entirety of MIT license"""
+    print("""{}\n
 Copyright (c) 2021 The Pennsylvania State University Institute for Computational and Data Sciences
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,4 +24,4 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE.""".format(description))
