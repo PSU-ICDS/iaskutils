@@ -12,6 +12,10 @@ from utils.special_print import print_info
 from utils.special_print import important_info
 from utils.special_print import printrichtext
 from utils.compression import Compression
+from utils.print_license import licenseheader
+from utils.print_license import licensebody
+from utils.verifylocale import verifylocale
+
 
 # Global variables
 home_env_var = os.getenv('HOME')
@@ -41,8 +45,6 @@ def checkjob_xml(checkjob_path, job_id, root_dir):
 
 
 @click.command()
-@click.option("-V", "--version", is_flag=True, help="Print version info.")
-@click.option("--license", is_flag=True, help="Print licensing info.")
 @click.argument("job", default=None, nargs=-1)
 @click.option("-n", "--name", default="gathero_output", help="Name of output directory and archive (default: "
                                                              "gathero_output).")
@@ -50,29 +52,15 @@ def checkjob_xml(checkjob_path, job_id, root_dir):
               default="zip", help="Compression algorithm to use (default: zip).")
 @click.option("-d", "--directory", default="{}/scratch".format(home_env_var),
               help="Directory to save output to (default: ~/scratch).")
-def gathero(version, license, job, name, compression, directory):
+@click.option("-V", "--version", is_flag=True, help="Print version info.")
+@click.option("--license", is_flag=True, help="Print licensing info.")
+def gathero(job, name, compression, directory, version, license):
     """gathero: A script to collect essential information about a user's job(s)."""
     if version:
-        click.echo("gathero v1.2  Copyright (C) 2021  Jason C. Nucciarone \n\n"
-                   "This program comes with ABSOLUTELY NO WARRANTY; \n"
-                   "for more details type \"gathero --license\". This is free software, \n"
-                   "and you are welcome to redistribute it under certain conditions; \n"
-                   "go to https://www.gnu.org/licenses/licenses.html for more details.")
+        licenseheader("gathero v1.2") 
 
     elif license:
-        click.echo("""gathero: A script to collect essential information about a user's job(s).\n
-    Copyright (C) 2021  Jason C. Nucciarone
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
+        licensebody("gathero: A script to collect essential information about a user's job(s).")
 
     else:
         # Change into the directory specified by the user to create $NAME
@@ -242,4 +230,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
 
 
 if __name__ == "__main__":
-    gathero()
+    out, err = verifylocale()
+    if err != None:
+        printrichtext("Uh oh. Looks like the UTF-8 locale is not supported on your system! " +
+                      "Please try using [bold blue]locale-gen en_US.UTF-8[/bold blue] before continuing.")
+    
+    else:
+        gathero()
