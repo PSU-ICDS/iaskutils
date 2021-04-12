@@ -26,7 +26,7 @@ To get access to the collection on the Roar cluster, you simply just need to use
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.1
+$ module load iaskutils/1.2
 ```
 
 Now let's get onto the meat of this README!
@@ -50,7 +50,7 @@ $ module load anaconda3/2020.07
 $ conda create --prefix /gpfs/group/dml129/default/sw7/python python=3.9
 $ export PATH=/gpfs/group/dml129/default/sw7/python/bin:$PATH
 $ cd /gpfs/group/dml129/default/sw7
-$ git clone https://github.com/NucciTheBoss/iaskutils.git
+$ git clone https://github.com/ICDS-Roar/iaskutils.git
 $ cd iaskutils
 $ pip install -r requirements.txt
 $ pip install pyinstaller
@@ -109,7 +109,7 @@ Now, in order for users and i-ASK teamates alike to access the iaskutils collect
 ```bash
 $ cd /gpfs/group/dml129/default/sw7
 $ mkdir -p modules/iaskutils
-$ cp iaskutils/share/modules/1.1.lua modules/iaskutils/1.1.lua
+$ cp iaskutils/share/modules/1.2.lua modules/iaskutils/1.2.lua
 $ chmod -R ugo+rx iaskutils
 $ chmod -R ugo+rx modules
 ```
@@ -118,7 +118,7 @@ Now you should be able to load the iaskutils collection by using the following c
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.1
+$ module load iaskutils/1.2
 ```
 
 **Congratulations!** You have succesfully installed the iaskutils collection!
@@ -148,28 +148,28 @@ If you encounter any bugs or any *oddities* when working with the iaskutils coll
 2. What are you trying to accomplish?
 3. The stacktrace of the error you are receiving.
 
-The more information the better. I cannot fix the problem if I do not know how it is being caused. Also, when you open the issue, please label the issue as a **bug**.
+The more information the better. We cannot fix the problem if we do not know how it is being caused. Also, when you open the issue, please label the issue as a **bug**.
 
 ## Requesting Features
 
-If there is a new tool or feature you would like to see added to this collection, please open an issue on this repository. While I cannot promise that every feature requested will be added, I will at least give it a look! Also, when requesting a feature as an issue, please label the issue as a **feature request**.
+If there is a new tool or feature you would like to see added to this collection, please open an issue on this repository. While we cannot promise that every feature requested will be added, we will at least give it a look! Also, when requesting a feature as an issue, please label the issue as a **feature request** or **enhancement**.
 
 # Contributing Guidelines
 
-If you would like to help me add to the iaskutils collection by either fixing issues, adding new tools, or even porting to another cluster, please create a fork of this repository. In that fork, create a branch that alludes to what you are trying to accomplish.
+If you would like to help us add to the iaskutils collection by either fixing issues, adding new tools, or even porting to another cluster, please create a fork of this repository. In that fork, create a branch that alludes to what you are trying to accomplish.
 
 After completing the work in your branch, please open a pull request to the main repository. In your pull request, please include the following things:
 
 1. What did you add/modify in your branch?
 2. Why did you make the addition/modification?
 
-Once again, the more information you include the better! Once I review the pull request, I will determine if it should be merged or not! If I say no, I will comment why.
+Once again, the more information you include the better! Once we review the pull request, we will determine if it should be merged or not! If we say no, we will comment why.
 
 # License
 
-![GitHub](https://img.shields.io/github/license/NucciTheBoss/iaskutils)
+![License](https://img.shields.io/badge/license-MIT-brightgreen)
 
-This repository is licensed under the GNU General Public License v3.0. For more information on what this license entails, please feel free to visit https://www.gnu.org/licenses/gpl-3.0.en.html
+This repository is licensed under the permisive MIT License. For more information on what this license entails, please feel free to visit https://en.wikipedia.org/wiki/MIT_License.
 
 # Troubleshooting
 
