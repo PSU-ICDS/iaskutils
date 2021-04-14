@@ -26,7 +26,7 @@ To get access to the collection on the Roar cluster, you simply just need to use
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.2
+$ module load iaskutils/1.2.1
 ```
 
 Now let's get onto the meat of this README!
@@ -53,7 +53,7 @@ $ cd /gpfs/group/dml129/default/sw7
 $ git clone https://github.com/ICDS-Roar/iaskutils.git
 $ cd iaskutils
 $ pip install -r requirements.txt
-$ pip install pyinstaller
+$ pip install nuitka
 $ mkdir bin
 ```
 
@@ -61,11 +61,12 @@ Now that the iaskutils environment is ready to go, it is now time time to instal
 
 ## Installing collector
 
-To install collector, you simply need to use `pyinstaller` and then set up a symlink to the `/bin` directory we created (just make sure that you are still in the iaskutils directory!):
+To install collector, you simply need to use `nuitka` and compile the `collector.py` file. In the compile instructions, you can output the compiled executable to the `/bin` directory (just make sure that you are still in the iaskutils directory!):
 
 ```bash
-$ pyinstaller collector.py
-$ ln -s $(pwd)/dist/collector/collector $(pwd)/bin/collector
+$ module load gcc/8.3.1
+$ python -m nuitka -o bin/collector --follow-imports collector.py
+$ rm -rf collector.build
 ```
 
 Now that collector is done, onto **gathero**!
@@ -75,31 +76,35 @@ Now that collector is done, onto **gathero**!
 Like collector, the install process for gathero is the same:
 
 ```bash
-$ pyinstaller gathero.py
-$ ln -s $(pwd)/dist/gathero/gathero $(pwd)/bin/gathero
+$ module load gcc/8.3.1
+$ python -m nuitka -o bin/gathero --follow-imports gathero.py
+$ rm -rf gathero.build
 ```
 
-If you haven't deduced it already, the install process for the rest of the Python scripts in the collector is virtually the same!
+If you haven't deduced it already, the install process for the rest of the Python scripts in the collection is virtually the same!
 
 ## Installing relinkworkscratch
 
 ```bash
-$ pyinstaller relinkworkscratch.py
-$ ln -s $(pwd)/dist/relinkworkscratch/relinkworkscratch $(pwd)/bin/relinkworkscratch
+$ module load gcc/8.3.1
+$ python -m nuitka -o bin/relinkworkscratch --follow-imports relinkworkscratch.py
+$ rm -rf relinkworkscratch.build
 ```
 
 ## Installing setupcomsolsymlink
 
 ```bash
-$ pyinstaller setupcomsolsymlink.py
-$ ln -s $(pwd)/dist/setupcomsolsymlink/setupcomsolsymlink $(pwd)/bin/setupcomsolsymlink
+$ module load gcc/8.3.1
+$ python -m nuitka -o bin/setupcomsolsymlink --follow-imports setupcomsolsymlink.py
+$ rm -rf setupcomsolsymlink.build
 ```
 
 ## Installing setupcondasymlink
 
 ```bash
-$ pyinstaller setupcondasymlink.py
-$ ln -s $(pwd)/dist/setupcondasymlink/setupcondasymlink $(pwd)/bin/setupcondasymlink
+$ module load gcc/8.3.1
+$ python -m nuitka -o bin/setupcondasymlink --follow-imports setupcondasymlink.py
+$ rm -rf setupcondasymlink.build
 ```
 
 ## Set up the iaskutils module file
@@ -109,7 +114,7 @@ Now, in order for users and i-ASK teamates alike to access the iaskutils collect
 ```bash
 $ cd /gpfs/group/dml129/default/sw7
 $ mkdir -p modules/iaskutils
-$ cp iaskutils/share/modules/1.2.lua modules/iaskutils/1.2.lua
+$ cp iaskutils/share/modules/1.2.1.lua modules/iaskutils/1.2.1.lua
 $ chmod -R ugo+rx iaskutils
 $ chmod -R ugo+rx modules
 ```
@@ -118,7 +123,7 @@ Now you should be able to load the iaskutils collection by using the following c
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.2
+$ module load iaskutils/1.2.1
 ```
 
 **Congratulations!** You have succesfully installed the iaskutils collection!
@@ -129,7 +134,7 @@ The nice thing about the iaskutils collection is that each of the scripts/tools 
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.2
+$ module load iaskutils/1.2.1
 $ man gathero
 ```
 
