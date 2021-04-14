@@ -59,7 +59,7 @@ def gathero(job, name, compression, directory, version, license):
 
         except OSError:
             print_bad("Something went wrong when trying to change into {} ".format(directory) +
-                      "Please contact i-ASK center at iask@ics.psu.edu.")
+                      "\nPlease contact i-ASK center at iask@ics.psu.edu.")
             return
 
         # Create $NAME directory and then move into it.
@@ -83,8 +83,8 @@ def gathero(job, name, compression, directory, version, license):
         # If the user specified no job ids on the command line
         if job is None:
             printrichtext("No job ID found. Please enter job ID(s). \n"
-                        "Use [bold blue]gathero --help[/bold blue] or contact the i-ASK center \n"
-                        "at iask@ics.psu.edu if you need help.")
+                          "Use [bold blue]gathero --help[/bold blue] or contact the i-ASK center \n"
+                          "at iask@ics.psu.edu if you need help.")
             return
 
         print_good("Executing checkjob on given job ids.")
@@ -227,7 +227,7 @@ if __name__ == "__main__":
     
     else:
         parser = argparse.ArgumentParser()
-        parser.add_argument("jobs", nargs="+", default=None)
+        parser.add_argument("jobs", nargs="*", default=None)
         parser.add_argument("-n", "--name", default="gathero-output", help="Name of the output directory and archive (default: gathero-output).")
         parser.add_argument("-c", "--compression", type=str, choices=["gzip", "bz2", "xz", "tar", "zip"],
                             default="zip", help="Compression algorithm to use (default: zip).")
