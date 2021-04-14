@@ -4,7 +4,7 @@ import multiprocessing
 import shutil
 import glob
 from xml.dom import minidom
-import click
+import argparse
 from progress.bar import Bar
 from utils.special_print import print_good
 from utils.special_print import print_bad
@@ -44,20 +44,10 @@ def checkjob_xml(checkjob_path, job_id, root_dir):
     fout.close()
 
 
-@click.command()
-@click.argument("job", default=None, nargs=-1)
-@click.option("-n", "--name", default="gathero_output", help="Name of output directory and archive (default: "
-                                                             "gathero_output).")
-@click.option("-c", "--compression", type=click.Choice(["gzip", "bz2", "xz", "tar", "zip"]),
-              default="zip", help="Compression algorithm to use (default: zip).")
-@click.option("-d", "--directory", default="{}/scratch".format(home_env_var),
-              help="Directory to save output to (default: ~/scratch).")
-@click.option("-V", "--version", is_flag=True, help="Print version info.")
-@click.option("--license", is_flag=True, help="Print licensing info.")
 def gathero(job, name, compression, directory, version, license):
     """gathero: A script to collect essential information about a user's job(s)."""
     if version:
-        licenseheader("gathero v1.2") 
+        licenseheader("gathero v1.2.1") 
 
     elif license:
         licensebody("gathero: A script to collect essential information about a user's job(s).")
@@ -236,4 +226,14 @@ if __name__ == "__main__":
                       "Please try using [bold blue]locale-gen en_US.UTF-8[/bold blue] before continuing.")
     
     else:
-        gathero()
+        parser = argparse.ArgumentParser()
+        parser.add_argument("jobs", nargs="+", default=None)
+        parser.add_argument("-n", "--name", default="gathero-output", help="Name of the output directory and archive (default: gathero-output).")
+        parser.add_argument("-c", "--compression", type=str, choices=["gzip", "bz2", "xz", "tar", "zip"],
+                            default="zip", help="Compression algorithm to use (default: zip).")
+        parser.add_argument("-d", "--directory", type=str, default="{}/scratch".format(home_env_var), 
+                            help="Directory to save output to (default: ~/scratch).")
+        parser.add_argument("-V", "--version", action="store_true", help="Print version info.")
+        parser.add_argument("--license", action="store_true", help="Print licensing info.")
+        args = parser.parse_args()
+        gathero(args.jobs, args.name, args.compression, args.directory, args.version, args.license)
