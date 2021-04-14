@@ -1,5 +1,6 @@
 import os
 import subprocess
+import multiprocessing
 import shutil
 import glob
 from xml.dom import minidom
@@ -87,8 +88,21 @@ def gathero(job, name, compression, directory, version, license):
             return
 
         print_good("Executing checkjob on given job ids.")
+        process_list = list()
         for jobs in job:
-            checkjob(checkjob_path, jobs, os.getcwd())
+            try:
+                process = multiprocessing.Process(target=checkjob,
+                                                  args=(checkjob_path, jobs, os.getcwd()))
+                process_list.append(process)
+                process.start()
+
+            except multiprocessing.ProcessError:
+                print_bad("Something went wrong running checkjob. \n"
+                          "Please contact i-ASK center for help!")
+
+        # Block until all checkjobs have been completed
+        for process in process_list:
+            process.join()
 
         # Once checkjob has finished running
         print_good("All checkjobs have been successful!")
@@ -99,9 +113,22 @@ def gathero(job, name, compression, directory, version, license):
         above_tmp_dir = os.getcwd()
         os.chdir("tmp")
 
+        process_list_2 = list()
         for jobs in job:
-            checkjob_xml(checkjob_path, jobs, os.getcwd())
-                
+            try:
+                process = multiprocessing.Process(target=checkjob_xml,
+                                                  args=(checkjob_path, jobs, os.getcwd()))
+                process_list_2.append(process)
+                process.start()
+
+            except multiprocessing.ProcessError:
+                print_bad("Something went wrong collecting allocation and user info. \n"
+                          "Please contact i-ASK center for help!")
+
+        # Block until process 2 jobs are done
+        for process in process_list_2:
+            process.join()
+
         # After XML files have been collected, pull allocation name and user info
         xml_files = glob.glob("*.xml")
         alloc_name = list()
