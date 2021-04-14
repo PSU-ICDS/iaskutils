@@ -7,7 +7,7 @@
 gathero \- a script to collect essential information about a user's job(s).
 
 .SH SYNOPSIS
-gathero [-h] [-n NAME] [-c {gzip,bz2,xz,tar,zip}] [-d DIRECTORY] [-V] [--license] [jobs]
+gathero.py [-h] [-n NAME] [-c {gzip,bz2,xz,tar,zip}] [-d DIRECTORY] [-V] [--license] [jobs [jobs ...]]
 
 .SH DESCRIPTION
 gathero is an advanced, high\-level tool based of an extension of the checkjob utility available on most HPC clusters. Where gathero differs from checkjob is that it pulls information on both the user and allocation and then runs a series of commands on the user and the allocation. Once gathero is done, it saves the output to a directory that can be analyzed by the user. Gathero also creates are shareable archive as well and saves it to the output directory. Also, gathero has the ability to query multiple job ids. 
