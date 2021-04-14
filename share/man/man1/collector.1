@@ -2,12 +2,12 @@
 .\" Please open an issue on GitHub or fork and push changes to the
 .\" repository to correct errors or typos.
 
-.TH collector 1 "12 April 2021" "1.2" "collector man page"
+.TH collector 1 "12 April 2021" "1.2.1" "collector man page"
 .SH NAME
 collector \- a simple script to collect information about your environment.
 
 .SH SYNOPSIS
-collector [OPTIONS]
+collector [-h] [-c {gzip,bz2,xz,tar,zip}] [-d DIRECTORY] [-V] [--license]
 
 .SH DESCRIPTION
 Collector is a script that does exactly as its name implies; it collects things. Collector is used to retrieve important files and find important info inside a user\'s home directory, create a sharable archive file, and then educate the user how they can share it with a specific tech. For collector, it does not matter whether the above files exist or not; collector simply looks for them. Once they are found, collector adds them to an archive. Collector also runs a few shell commands on the user's home directory and saves that output to the archive as well. Once collector is done, it creates an archive name $USER_info.
@@ -57,7 +57,7 @@ Print collector version info.
 .IP "\fB--license\fP"
 Print collector licensing info.
 
-.IP "\fB--help\fP"
+.IP "\fB-h|--help\fP"
 Print help info.
 
 .SH FILES

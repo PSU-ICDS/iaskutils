@@ -2,7 +2,7 @@ import os
 import subprocess
 import shutil
 import glob
-import click
+import argparse
 from progress.bar import Bar
 from utils.special_print import print_good
 from utils.special_print import print_bad
@@ -30,17 +30,10 @@ def readfile(path, filename):
     fout.close()
 
 
-@click.command()
-@click.option("-c", "--compression", type=click.Choice(["gzip", "bz2", "xz", "tar", "zip"]),
-              default="zip", help="Compression algorithm to use (default: zip).")
-@click.option("-d", "--directory", default="{}/scratch".format(home_env_var),
-              help="Directory to save output to (default: ~/scratch).")
-@click.option("-V", "--version", is_flag=True, help="Print version info.")
-@click.option("--license", is_flag=True, help="Print licensing info.")
 def collector(compression, directory, version, license):
     """collector: A simple script to collect information about your environment."""
     if version:
-        licenseheader("collector v1.2")
+        licenseheader("collector v1.2.1")
 
     elif license:
         licensebody("collector: A simple script to collect information about your environment.")
@@ -223,4 +216,12 @@ if __name__ == "__main__":
                       "Please try using [bold blue]locale-gen en_US.UTF-8[/bold blue] before continuing.")
     
     else:
-        collector()
+        parser = argparse.ArgumentParser()
+        parser.add_argument("-c", "--compression", type=str, choices=["gzip", "bz2", "xz", "tar", "zip"],
+                            default="zip", help="Compression algorithm to use (default: zip).")
+        parser.add_argument("-d", "--directory", type=str, default="{}/scratch".format(home_env_var), 
+                            help="Directory to save output to (default: ~/scratch).")
+        parser.add_argument("-V", "--version", action="store_true", help="Print version info.")
+        parser.add_argument("--license", action="store_true", help="Print licensing info.")
+        args = parser.parse_args()
+        collector(args.compression, args.directory, args.version, args.license)

@@ -1,6 +1,6 @@
 import os
 import shutil
-import click
+import argparse
 from utils.special_print import print_good
 from utils.special_print import print_bad
 from utils.special_print import print_info
@@ -11,13 +11,10 @@ from utils.print_license import licensebody
 from utils.verifylocale import verifylocale
 
 
-@click.command()
-@click.option("-V", "--version", is_flag=True, help="Print version info.")
-@click.option("--license", is_flag=True, help="Print licensing info.")
 def setupcomsolsymlink(version, license):
     """setupcomsolsymlink: A simple script to relocate the COMSOL cache to the work directory."""
     if version:
-        licenseheader("setupcomsolsymlink v1.2")
+        licenseheader("setupcomsolsymlink v1.2.1")
 
     elif license:
         licensebody("setupcomsolsymlink: A simple script to relocate the COMSOL cache to the work directory.")
@@ -51,4 +48,8 @@ if __name__ == "__main__":
                       "Please try using [bold blue]locale-gen en_US.UTF-8[/bold blue] before continuing.")
     
     else:
-        setupcomsolsymlink()
+        parser = argparse.ArgumentParser()
+        parser.add_argument("-V", "--version", action="store_true", help="Print version info.")
+        parser.add_argument("--license", action="store_true", help="Print licensing info.")
+        args = parser.parse_args()
+        setupcomsolsymlink(args.version, args.license)
