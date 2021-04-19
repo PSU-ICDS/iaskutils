@@ -33,40 +33,72 @@ Now let's get onto the meat of this README!
 
 # Installation
 
-1. [Environment setup](#environment-setup)
-2. [Installing collector](#installing-collector)
-3. [Installing gathero](#installing-gathero)
-4. [Installing relinkworkscratch](#installing-relinkworkscratch)
-5. [Installing setupcomsolsymlink](#installing-setupcomsolsymlink)
-6. [Installing setupcondasymlink](#installing-setupcondasymlink)
-7. [Set up the iaskutils module file](#set-up-the-iaskutils-module-file)
+1. [Installing Python](#installing-python)
+2. [Set up the iaskutils module file](#set-up-the-iaskutils-module-file)
+3. [Installing the dependencies](#installing-the-dependencies)
+4. [Installing collector](#installing-collector)
+5. [Installing gathero](#installing-gathero)
+6. [Installing relinkworkscratch](#installing-relinkworkscratch)
+7. [Installing setupcomsolsymlink](#installing-setupcomsolsymlink)
+8. [Installing setupcondasymlink](#installing-setupcondasymlink)
+9. [Cleaning up](#cleaning-up)
 
-## Environment setup
+## Installing Python
 
-First, in order to use the **iaskutils** collection, you need to set up the environment by installing the necessary prerequisites. Luckily, you only need to use the following commands on the Roar cluster:
-
-```bash
-$ module load anaconda3/2020.07
-$ conda create --prefix /gpfs/group/dml129/default/sw7/python python=3.9
-$ export PATH=/gpfs/group/dml129/default/sw7/python/bin:$PATH
-$ cd /gpfs/group/dml129/default/sw7
-$ git clone https://github.com/ICDS-Roar/iaskutils.git
-$ cd iaskutils
-$ pip install -r requirements.txt
-$ pip install nuitka
-$ mkdir bin
-```
-
-Now that the iaskutils environment is ready to go, it is now time time to install each of the tools. Let's start with **collector**!
-
-## Installing collector
-
-To install collector, you simply need to use `nuitka` and compile the `collector.py` file. In the compile instructions, you can output the compiled executable to the `/bin` directory (just make sure that you are still in the iaskutils directory!):
+First, in order to use the **iaskutils** collection, you need to install a publicly accessible Python interpreter on Roar for iaskutils. Use the following commands to compile and install the iaskutils custom Python interpeter:
 
 ```bash
 $ module load gcc/8.3.1
-$ python -m nuitka -o bin/collector --follow-imports collector.py
-$ rm -rf collector.build
+$ cd /gpfs/group/dml129/default/sw7
+$ wget https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tar.xz -O - | tar -xJv
+$ export INSTALL_ROOT=$(pwd)
+$ cd Python-3.9.4
+$ ./configure --enable-shared --enable-optimizations --prefix=$INSTALL_ROOT/python-3.9.4
+$ make && make install
+$ chmod -R ugo+rx $INSTALL_ROOT/python-3.9.4 
+```
+
+Now that the iaskutil's custom Python interpreter is ready to go, we need to set up the iaskutils module file before compiling the tools in the collection!
+
+## Set up the iaskutils module file
+
+Now, in order for users and i-ASK teamates alike to access the iaskutils collection on Roar, you need to set up the corresponding module file. Luckily, you only need to use the following commands to set up the module file:
+
+```bash
+$ cd /gpfs/group/dml129/default/sw7
+$ git clone https://github.com/ICDS-Roar/iaskutils.git
+$ mkdir -p modules/iaskutils
+$ cp iaskutils/share/modules/1.2.1.lua modules/iaskutils/1.2.1.lua
+$ chmod -R ugo+rx modules
+```
+
+Once you have the iaskutils module file setup, it's time to start installing the various scripts in the collection! First, you will need to load the new iaskutils module by using the following commands:
+
+```bash
+$ module use /gpfs/group/dml129/default/sw7/modules
+$ module load iaskutils/1.2.1
+```
+
+Now it is time to install the dependencies for iaskutils!
+
+## Installing the dependencies
+
+Use the following commands to install iaskutil's dependencies. *Just make sure that you have the iaskutils module loaded first*:
+
+```bash
+$ cd /gpfs/group/dml129/default/sw7/iaskutils
+$ python3 -m pip install -r requirements.txt
+$ python3 -m pip install nuitka
+```
+Once you have successfully installed the python modules listed in `requirements.txt` and the nuitka compiler, it is time to start installing the collection!
+
+## Installing collector
+
+First, we will start by installing the utility **collector**. To install collector, you simply need to use `nuitka` and compile the `collector.py` file. In the compile instructions, you can output the compiled executable to the `/bin` directory (just make sure that you are still in the iaskutils directory!):
+
+```bash
+$ module load gcc/8.3.1
+$ python3 -m nuitka -o bin/collector --follow-imports collector.py
 ```
 
 Now that collector is done, onto **gathero**!
@@ -77,8 +109,7 @@ Like collector, the install process for gathero is the same:
 
 ```bash
 $ module load gcc/8.3.1
-$ python -m nuitka -o bin/gathero --follow-imports gathero.py
-$ rm -rf gathero.build
+$ python3 -m nuitka -o bin/gathero --follow-imports gathero.py
 ```
 
 If you haven't deduced it already, the install process for the rest of the Python scripts in the collection is virtually the same!
@@ -87,43 +118,31 @@ If you haven't deduced it already, the install process for the rest of the Pytho
 
 ```bash
 $ module load gcc/8.3.1
-$ python -m nuitka -o bin/relinkworkscratch --follow-imports relinkworkscratch.py
-$ rm -rf relinkworkscratch.build
+$ python3 -m nuitka -o bin/relinkworkscratch --follow-imports relinkworkscratch.py
 ```
 
 ## Installing setupcomsolsymlink
 
 ```bash
 $ module load gcc/8.3.1
-$ python -m nuitka -o bin/setupcomsolsymlink --follow-imports setupcomsolsymlink.py
-$ rm -rf setupcomsolsymlink.build
+$ python3 -m nuitka -o bin/setupcomsolsymlink --follow-imports setupcomsolsymlink.py
 ```
 
 ## Installing setupcondasymlink
 
 ```bash
 $ module load gcc/8.3.1
-$ python -m nuitka -o bin/setupcondasymlink --follow-imports setupcondasymlink.py
-$ rm -rf setupcondasymlink.build
+$ python3 -m nuitka -o bin/setupcondasymlink --follow-imports setupcondasymlink.py
 ```
 
-## Set up the iaskutils module file
+## Cleaning up
 
-Now, in order for users and i-ASK teamates alike to access the iaskutils collection on Roar, you need to set up the corresponding module file. Luckily, you only need to use the following commands to set up the module file:
+It is a good idea that you save space after installing the iaskutils collection. To finish up the the installation, simply use the following commands
 
 ```bash
-$ cd /gpfs/group/dml129/default/sw7
-$ mkdir -p modules/iaskutils
-$ cp iaskutils/share/modules/1.2.1.lua modules/iaskutils/1.2.1.lua
+$ rm -rf *.build
+$ cd ..
 $ chmod -R ugo+rx iaskutils
-$ chmod -R ugo+rx modules
-```
-
-Now you should be able to load the iaskutils collection by using the following commands:
-
-```bash
-$ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.2.1
 ```
 
 **Congratulations!** You have succesfully installed the iaskutils collection!
