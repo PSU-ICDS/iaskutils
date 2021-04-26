@@ -216,7 +216,7 @@ if __name__ == "__main__":
                       "Please try using [bold blue]locale-gen en_US.UTF-8[/bold blue] before continuing.")
     
     else:
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(description="collector - a simple script to collect information about your environment.")
         parser.add_argument("-c", "--compression", type=str, choices=["gzip", "bz2", "xz", "tar", "zip"],
                             default="zip", help="Compression algorithm to use (default: zip).")
         parser.add_argument("-d", "--directory", type=str, default="{}/scratch".format(home_env_var), 
