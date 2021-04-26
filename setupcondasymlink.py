@@ -41,6 +41,7 @@ def setupcondasymlink(version, license):
 
         return
 
+
 if __name__ == "__main__":
     out, err = verifylocale()
     if err != None:
@@ -48,7 +49,7 @@ if __name__ == "__main__":
                       "Please try using [bold blue]locale-gen en_US.UTF-8[/bold blue] before continuing.")
     
     else:
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(description="setupcondasymlink - a simple script to relocate the conda cache to the work directory.")
         parser.add_argument("-V", "--version", action="store_true", help="Print version info.")
         parser.add_argument("--license", action="store_true", help="Print licensing info.")
         args = parser.parse_args()

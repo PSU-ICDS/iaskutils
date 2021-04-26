@@ -226,7 +226,7 @@ if __name__ == "__main__":
                       "Please try using [bold blue]locale-gen en_US.UTF-8[/bold blue] before continuing.")
     
     else:
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(description="gathero - a script to collect essential information about a user's job(s).")
         parser.add_argument("jobs", nargs="*")
         parser.add_argument("-n", "--name", default="gathero-output", help="Name of the output directory and archive (default: gathero-output).")
         parser.add_argument("-c", "--compression", type=str, choices=["gzip", "bz2", "xz", "tar", "zip"],

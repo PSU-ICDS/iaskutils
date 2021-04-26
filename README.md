@@ -21,12 +21,13 @@ You might be asking yourself, "what is a iaskutils collection?" Well, it is just
 * **`relinkworkscratch`:** A simple script to reestablish the work and scratch directory symlinks in a user's home directory.
 * **`setupcomsolsymlink`:** A simple script to relocate the COMSOL cache to the work directory.
 * **`setupcondasymlink`:** A simple script to relocate the conda cache to the work directory.
+* **`updatekeys`:** Create a new ssh-key that will allow you to log onto the compute nodes without entering a password.
 
 To get access to the collection on the Roar cluster, you simply just need to use the following commands:
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.2.1
+$ module load iaskutils/1.3.1
 ```
 
 Now let's get onto the meat of this README!
@@ -41,7 +42,8 @@ Now let's get onto the meat of this README!
 6. [Installing relinkworkscratch](#installing-relinkworkscratch)
 7. [Installing setupcomsolsymlink](#installing-setupcomsolsymlink)
 8. [Installing setupcondasymlink](#installing-setupcondasymlink)
-9. [Cleaning up](#cleaning-up)
+9. [Installing updatekeys](#installing-updatekeys)
+10. [Cleaning up](#cleaning-up)
 
 ## Installing Python
 
@@ -68,7 +70,7 @@ Now, in order for users and i-ASK teamates alike to access the iaskutils collect
 $ cd /gpfs/group/dml129/default/sw7
 $ git clone https://github.com/ICDS-Roar/iaskutils.git
 $ mkdir -p modules/iaskutils
-$ cp iaskutils/share/modules/1.2.1.lua modules/iaskutils/1.2.1.lua
+$ cp iaskutils/share/modules/1.3.1.lua modules/iaskutils/1.3.1.lua
 $ chmod -R ugo+rx modules
 ```
 
@@ -76,7 +78,7 @@ Once you have the iaskutils module file setup, it's time to start installing the
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.2.1
+$ module load iaskutils/1.3.1
 ```
 
 Now it is time to install the dependencies for iaskutils!
@@ -135,6 +137,13 @@ $ module load gcc/8.3.1
 $ python3 -m nuitka -o bin/setupcondasymlink --follow-imports setupcondasymlink.py
 ```
 
+## Installing updatekeys
+
+```bash
+$ module load gcc/8.3.1
+$ python3 -m nuitka -o bin/updatekeys --follow-imports updatekeys.py
+```
+
 ## Cleaning up
 
 It is a good idea that you save space after installing the iaskutils collection. To finish up the the installation, simply use the following commands
@@ -153,7 +162,7 @@ The nice thing about the iaskutils collection is that each of the scripts/tools 
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.2.1
+$ module load iaskutils/1.3.1
 $ man gathero
 ```
 
