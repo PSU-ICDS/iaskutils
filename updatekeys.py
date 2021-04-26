@@ -89,8 +89,8 @@ def updatekeys(prompt, version, license):
 
         # Start execution
         current_date = subprocess.getoutput('date +"%d%b%Y-%T"')
-        important_info("This script will create a new ssh-key that will allow you to log onto the compute nodes without entering a password. The script is set-up to copy any existing files so that previous configuretions are not lost. These files will include {} in the name and will be listed to the screen.".format(current_date))
-        important_info("The key will be created without a passphrase. You can exit this script and create your ssh key manually if you wish to use a passphrase.  Note that you will be prompted for this passphrase every time you or your script attempts to use an additional node, similar to requiring a password.")
+        important_info("This script will create a new ssh-key that will allow you to log onto the compute nodes without entering a password. The script is set-up to copy any existing files so that previous configuretions are not lost. These files will include {} in the name and will be listed to the screen.\n".format(current_date))
+        important_info("The key will be created without a passphrase. You can exit this script and create your ssh key manually if you wish to use a passphrase. Note that you will be prompted for this passphrase every time you or your script attempts to use an additional node, similar to requiring a password.\n")
 
         if prompt:
             mainblock(home_env_var)
