@@ -13,8 +13,14 @@ from utils.verifylocale import verifylocale
 
 
 def mainblock(home_dir):
+    """Block of code where main operations occur."""
     current_date = subprocess.getoutput('date +"%d%b%Y-%T"')
     important_info("Checking if files exist...\n")
+
+    # Check if .ssh directory even exists
+    if os.path.isdir("{}/.ssh".format(home_dir)) is False:
+        print_info("~/.ssh does not exist! Now creating ~/.ssh.\n")
+        os.mkdir("{}/.ssh".format(home_dir))
 
     # Check if config file exists
     config_file = "{}/.ssh/config".format(home_dir)
