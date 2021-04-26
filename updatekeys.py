@@ -54,7 +54,7 @@ def mainblock(home_dir):
 
     # Create new ssh key
     important_info("Creating your key...")
-    subprocess.run(["ssh-keygen", "-N", '""', "-f", "{}/.ssh/id_rsa".format(home_dir), ">", "{}/.ssh/{}.keyFingerprintAndRandomart".format(home_dir, current_date)])
+    subprocess.run(["ssh-keygen -N '' -f {}/.ssh/id_rsa > {}/.ssh/{}.keyFingerprintAndRandomart".format(home_dir, home_dir, current_date)], shell=True)
     shutil.copy("{}/.ssh/id_rsa".format(home_dir), "{}/.ssh/id_rsa.{}".format(home_dir, current_date))
     shutil.copy("{}/.ssh/id_rsa.pub".format(home_dir), "{}/.ssh/id_rsa.pub.{}".format(home_dir, current_date))
     print_good("Your key fingerprint and randomart image were saved in ~/.ssh/{}.keyFingerprintAndRandomart".format(current_date))
