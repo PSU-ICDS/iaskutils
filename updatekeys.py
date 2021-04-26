@@ -74,7 +74,7 @@ def mainblock(home_dir):
     subprocess.run(["echo 'StrictHostKeyChecking no' > {}/.ssh/config".format(home_dir)], shell=True)
 
     # Correct permissions
-    print_info("Updating the file permissions")
+    print_info("Updating the file permissions...")
     os.chmod("{}/.ssh/config".format(home_dir), 0o444)
     os.chmod("{}/.ssh".format(home_dir), 0o700)
 
