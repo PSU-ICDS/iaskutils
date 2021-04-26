@@ -61,11 +61,11 @@ def mainblock(home_dir):
 
     # Authorize for this location (home is shared on the compute nodes)
     print_info("Setting up for use on the compute nodes...")
-    shutil.copy("{}/.ssh/id_rsa.pub".format(home_dir), "{}/.ssh/authorized_keys".format(current_date))
+    shutil.copy("{}/.ssh/id_rsa.pub".format(home_dir), "{}/.ssh/authorized_keys".format(home_dir))
 
     # Ensure that this is can be used
     print_info("Setting up the host key checking...")
-    subprocess.run(["echo", '"StrictHostKeyChecking no"', ">", "{}/.ssh/config".format(home_dir)])
+    subprocess.run(["echo 'StrictHostKeyChecking no' > {}/.ssh/config".format(home_dir)], shell=True)
 
     # Correct permissions
     print_info("Updating the file permissions")
@@ -114,7 +114,7 @@ if __name__ == "__main__":
                       "Please try using [bold blue]locale-gen en_US.UTF-8[/bold blue] before continuing.")
 
     else:
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(description="updatekeys - create a new ssh-key that will allow you to log onto the compute nodes without entering a password.")
         parser.add_argument("-y", "--yes", action="store_true", help="Say yes to all interactive prompts,")
         parser.add_argument("-V", "--version", action="store_true", help="Print version info.")
         parser.add_argument("--license", action="store_true", help="Print licensing info.")
