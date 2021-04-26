@@ -41,6 +41,7 @@ def setupcomsolsymlink(version, license):
 
         return
 
+
 if __name__ == "__main__":
     out, err = verifylocale()
     if err != None:
