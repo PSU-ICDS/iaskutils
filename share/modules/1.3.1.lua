@@ -13,6 +13,8 @@ The iaskutils collection currently consists of the following scripts:
 
 - setupcondasymlink: A simple script to relocate the conda cache to the work directory.
 
+- updatekeys: Create a new ssh-key that will allow you to log onto the compute nodes without entering a password.
+
 For help using these commands, simply refer to the man pages or please contact the i-ASK center
 at iask@ics.psu.edu for assistance.]])
 
@@ -22,6 +24,7 @@ whatis("gathero version: 1.2.1")
 whatis("relinkworkscratch version: 1.2.1")
 whatis("setupcomsolsymlink version: 1.2.1")
 whatis("setupcondasymlink version: 1.2.1")
+whatis("updatekeys version: 2.0")
 whatis("GitHub repository: https://github.com/ICDS-Roar/iaskutils")
 whatis("Author: Jason C. Nucciarone (jason.nucciarone@gmail.com, jcn23@psu.edu")
 
