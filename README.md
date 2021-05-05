@@ -27,7 +27,7 @@ To get access to the collection on the Roar cluster, you simply just need to use
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.3.1
+$ module load iaskutils/1.4.1
 ```
 
 Now let's get onto the meat of this README!
@@ -37,13 +37,8 @@ Now let's get onto the meat of this README!
 1. [Installing Python](#installing-python)
 2. [Set up the iaskutils module file](#set-up-the-iaskutils-module-file)
 3. [Installing the dependencies](#installing-the-dependencies)
-4. [Installing collector](#installing-collector)
-5. [Installing gathero](#installing-gathero)
-6. [Installing relinkworkscratch](#installing-relinkworkscratch)
-7. [Installing setupcomsolsymlink](#installing-setupcomsolsymlink)
-8. [Installing setupcondasymlink](#installing-setupcondasymlink)
-9. [Installing updatekeys](#installing-updatekeys)
-10. [Cleaning up](#cleaning-up)
+4. [Install the iaskutils](#install-the-iaskutils)
+5. [Cleaning up](#cleaning-up)
 
 ## Installing Python
 
@@ -70,7 +65,7 @@ Now, in order for users and i-ASK teamates alike to access the iaskutils collect
 $ cd /gpfs/group/dml129/default/sw7
 $ git clone https://github.com/ICDS-Roar/iaskutils.git
 $ mkdir -p modules/iaskutils
-$ cp iaskutils/share/modules/1.3.1.lua modules/iaskutils/1.3.1.lua
+$ cp iaskutils/share/modules/1.4.1.lua modules/iaskutils/1.4.1.lua
 $ chmod -R ugo+rx modules
 ```
 
@@ -78,7 +73,7 @@ Once you have the iaskutils module file setup, it's time to start installing the
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.3.1
+$ module load iaskutils/1.4.1
 ```
 
 Now it is time to install the dependencies for iaskutils!
@@ -94,54 +89,30 @@ $ python3 -m pip install nuitka
 ```
 Once you have successfully installed the python modules listed in `requirements.txt` and the nuitka compiler, it is time to start installing the collection!
 
-## Installing collector
+## Install the iaskutils
 
-First, we will start by installing the utility **collector**. To install collector, you simply need to use `nuitka` and compile the `collector.py` file. In the compile instructions, you can output the compiled executable to the `/bin` directory (just make sure that you are still in the iaskutils directory!):
+As of iaskutils release 1.4.1, you can now use GNU make to install the iaskutils collection! Automation at it's finest! All you need to do is use the following commands to successfully install the iaskutils collection:
 
 ```bash
 $ module load gcc/8.3.1
-$ python3 -m nuitka -o bin/collector --follow-imports collector.py
+$ make all
+$ make install
 ```
 
-Now that collector is done, onto **gathero**!
+It's that simple!
 
-## Installing gathero
+### Installation notes
 
-Like collector, the install process for gathero is the same:
+For testing purposes, you can execute `make test` before executing `make install` to verify that the iaskutils collection is functioning correectly. **Also**, you can build each iaskutil independantly in order to test the functionality of each utility. For example, here is how you would build `collector` individually:
 
 ```bash
-$ module load gcc/8.3.1
-$ python3 -m nuitka -o bin/gathero --follow-imports gathero.py
+$ make collector
 ```
 
-If you haven't deduced it already, the install process for the rest of the Python scripts in the collection is virtually the same!
-
-## Installing relinkworkscratch
+Lastly, by default, the Makefile will use the python installed in `/gpfs/group/dml129/default/sw7/python-3.9.4/bin`. You can change this default by passing the following variable when calling make:
 
 ```bash
-$ module load gcc/8.3.1
-$ python3 -m nuitka -o bin/relinkworkscratch --follow-imports relinkworkscratch.py
-```
-
-## Installing setupcomsolsymlink
-
-```bash
-$ module load gcc/8.3.1
-$ python3 -m nuitka -o bin/setupcomsolsymlink --follow-imports setupcomsolsymlink.py
-```
-
-## Installing setupcondasymlink
-
-```bash
-$ module load gcc/8.3.1
-$ python3 -m nuitka -o bin/setupcondasymlink --follow-imports setupcondasymlink.py
-```
-
-## Installing updatekeys
-
-```bash
-$ module load gcc/8.3.1
-$ python3 -m nuitka -o bin/updatekeys --follow-imports updatekeys.py
+$ make all PYTHON_PATH=/some/path/to/a/python/interpreter/bin
 ```
 
 ## Cleaning up
@@ -149,7 +120,7 @@ $ python3 -m nuitka -o bin/updatekeys --follow-imports updatekeys.py
 It is a good idea that you save space after installing the iaskutils collection. To finish up the the installation, simply use the following commands
 
 ```bash
-$ rm -rf *.build
+$ make clean
 $ cd ..
 $ chmod -R ugo+rx iaskutils
 ```
@@ -162,7 +133,7 @@ The nice thing about the iaskutils collection is that each of the scripts/tools 
 
 ```bash
 $ module use /gpfs/group/dml129/default/sw7/modules
-$ module load iaskutils/1.3.1
+$ module load iaskutils/1.4.1
 $ man gathero
 ```
 
