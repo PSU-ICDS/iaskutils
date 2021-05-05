@@ -1,7 +1,7 @@
 SHELL = /bin/bash
 
 OBJS = collector.py gathero.py relinkworkscratch.py setupcomsolsymlink.py setupcondasymlink.py updatekeys.py
-PYTHON_PATH = /gpfs/group/dml129/default/sw7/python-3.9.4/bin
+PYTHON_PATH = /gpfs/group/dml129/default/sw7/python-3.9.4/bin/python3
 NUITKA_FLAGS = --follow-imports
 
 collector: collector.py
@@ -23,12 +23,12 @@ updatekeys: updatekeys.py
 	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} updatekeys.py -o $@
 
 all:
-	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} collector.py -o $@
-	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} gathero.py -o $@
-	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} relinkworkscratch.py -o $@
-	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} setupcomsolsymlink.py -o $@
-	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} setupcondasymlink.py -o $@
-	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} updatekeys.py -o $@
+	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} collector.py -o collector
+	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} gathero.py -o gathero
+	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} relinkworkscratch.py -o relinkworkscratch
+	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} setupcomsolsymlink.py -o setupcomsolsymlink
+	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} setupcondasymlink.py -o setupcondasymlink
+	${PYTHON_PATH} -m nuitka ${NUITKA_FLAGS} updatekeys.py -o updatekeys
 
 clean:
 	-rm -rf *.build
