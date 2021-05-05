@@ -95,6 +95,8 @@ As of iaskutils release 1.4.1, you can now use GNU make to install the iaskutils
 
 ```bash
 $ module load gcc/8.3.1
+$ module use /gpfs/group/dml129/default/sw7/modules
+$ module load iaskutils/1.4.1
 $ make all
 $ make install
 ```
