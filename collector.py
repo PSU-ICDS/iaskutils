@@ -49,7 +49,7 @@ def collector(compression, directory, version, license):
             return
 
         # Create $USER_info directory and then change into it
-        user_info = "{}_info".format(user_name)
+        user_info = "{}-info".format(user_name)
         full_path_to_dir = os.getcwd()
 
         try:
@@ -68,81 +68,141 @@ def collector(compression, directory, version, license):
         # Loop through each file of interest
         # .bashrc
         if os.path.isfile("{}/{}".format(home_env_var, files_of_interest[0])):
-            readfile("{}/{}".format(home_env_var, files_of_interest[0]), "bashrc-{}.txt".format(user_name))
-            print_good("Read .bashrc file at {}/{}".format(home_env_var, files_of_interest[0]))
+            try:
+                readfile("{}/{}".format(home_env_var, files_of_interest[0]), "bashrc-{}.txt".format(user_name))
+
+            except UnicodeDecodeError:
+                subprocess.run("cat {}/{} > bashrc-{}.txt".format(home_env_var, files_of_interest[0], user_name), shell=True)
+
+            finally:
+                print_good("Read .bashrc file at {}/{}".format(home_env_var, files_of_interest[0]))
 
         else:
             print_info("Did not find any .bashrc file")
 
         # .bash_history
         if os.path.isfile("{}/{}".format(home_env_var, files_of_interest[1])):
-            readfile("{}/{}".format(home_env_var, files_of_interest[1]), "bash_history-{}.txt".format(user_name))
-            print_good("Read .bash_history file at {}/{}".format(home_env_var, files_of_interest[1]))
+            try:
+                readfile("{}/{}".format(home_env_var, files_of_interest[1]), "bash_history-{}.txt".format(user_name))
+
+            except UnicodeDecodeError:
+                subprocess.run("cat {}/{} > bash_history-{}.txt".format(home_env_var, files_of_interest[1], user_name), shell=True)
+
+            finally:
+                print_good("Read .bash_history file at {}/{}".format(home_env_var, files_of_interest[1]))
 
         else:
             print_info("Did not find any .bash_history file")
 
         # .bash_profile
         if os.path.isfile("{}/{}".format(home_env_var, files_of_interest[2])):
-            readfile("{}/{}".format(home_env_var, files_of_interest[2]), "bash_profile-{}.txt".format(user_name))
-            print_good("Read .bash_profile file at {}/{}".format(home_env_var, files_of_interest[2]))
+            try:
+                readfile("{}/{}".format(home_env_var, files_of_interest[2]), "bash_profile-{}.txt".format(user_name))
+
+            except UnicodeDecodeError:
+                subprocess.run("cat {}/{} > bash_profile-{}.txt".format(home_env_var, files_of_interest[2], user_name), shell=True)
+
+            finally:
+                print_good("Read .bash_profile file at {}/{}".format(home_env_var, files_of_interest[2]))
 
         else:
             print_info("Did not find any .bash_profile file")
 
         # .bash_logout
         if os.path.isfile("{}/{}".format(home_env_var, files_of_interest[3])):
-            readfile("{}/{}".format(home_env_var, files_of_interest[3]), "bash_logout-{}.txt".format(user_name))
-            print_good("Read .bash_logout file at {}/{}".format(home_env_var, files_of_interest[3]))
+            try:
+                readfile("{}/{}".format(home_env_var, files_of_interest[3]), "bash_logout-{}.txt".format(user_name))
+
+            except UnicodeDecodeError:
+                subprocess.run("cat {}/{} > bash_logout-{}.txt".format(home_env_var, files_of_interest[3], user_name), shell=True)
+
+            finally:
+                print_good("Read .bash_logout file at {}/{}".format(home_env_var, files_of_interest[3]))
 
         else:
             print_info("Did not find any .bash_logout file")
 
         # .bash_aliases
         if os.path.isfile("{}/{}".format(home_env_var, files_of_interest[4])):
-            readfile("{}/{}".format(home_env_var, files_of_interest[4]), "bash_aliases-{}.txt".format(user_name))
-            print_good("Read .bash_aliases file at {}/{}".format(home_env_var, files_of_interest[4]))
+            try:
+                readfile("{}/{}".format(home_env_var, files_of_interest[4]), "bash_aliases-{}.txt".format(user_name))
+
+            except UnicodeDecodeError:
+                subprocess.run("cat {}/{} > bash_aliases-{}.txt".format(home_env_var, files_of_interest[4], user_name), shell=True)
+
+            finally:
+                print_good("Read .bash_aliases file at {}/{}".format(home_env_var, files_of_interest[4]))
 
         else:
             print_info("Did not find any .bash_aliases file")
 
         # config.fish
         if os.path.isfile("{}/{}".format(home_env_var, files_of_interest[5])):
-            readfile("{}/.config/fish/{}".format(home_env_var, files_of_interest[5]),
-                     "config.fish-{}.txt".format(user_name))
-            print_good("Read config.fish file at {}/{}".format(home_env_var, files_of_interest[5]))
+            try:
+                readfile("{}/.config/fish/{}".format(home_env_var, files_of_interest[5]),
+                        "config.fish-{}.txt".format(user_name))
+
+            except UnicodeDecodeError:
+                subprocess.run("cat {}/{} > config.fish-{}.txt".format(home_env_var, files_of_interest[5], user_name), shell=True)
+
+            finally:
+                print_good("Read config.fish file at {}/{}".format(home_env_var, files_of_interest[5]))
 
         else:
             print_info("Did not find any config.fish file")
 
         # .cshrc
         if os.path.isfile("{}/{}".format(home_env_var, files_of_interest[6])):
-            readfile("{}/{}".format(home_env_var, files_of_interest[6]), "cshrc-{}.txt".format(user_name))
-            print_good("Read .cshrc file at {}/{}".format(home_env_var, files_of_interest[6]))
+            try:
+                readfile("{}/{}".format(home_env_var, files_of_interest[6]), "cshrc-{}.txt".format(user_name))
+
+            except UnicodeDecodeError:
+                subprocess.run("cat {}/{} > cshrc-{}.txt".format(home_env_var, files_of_interest[6], user_name), shell=True)
+
+            finally:
+                print_good("Read .cshrc file at {}/{}".format(home_env_var, files_of_interest[6]))
 
         else:
             print_info("Did not find any .cshrc file")
 
         # .history
         if os.path.isfile("{}/{}".format(home_env_var, files_of_interest[7])):
-            readfile("{}/{}".format(home_env_var, files_of_interest[7]), "history-{}.txt".format(user_name))
-            print_good("Read .history file at {}/{}".format(home_env_var, files_of_interest[7]))
+            try:
+                readfile("{}/{}".format(home_env_var, files_of_interest[7]), "history-{}.txt".format(user_name))
+
+            except UnicodeDecodeError:
+                subprocess.run("cat {}/{} > history-{}.txt".format(home_env_var, files_of_interest[7], user_name), shell=True)
+
+            finally:
+                print_good("Read .history file at {}/{}".format(home_env_var, files_of_interest[7]))
 
         else:
             print_info("Did not find any .history file")
 
         # .tcshrc
         if os.path.isfile("{}/{}".format(home_env_var, files_of_interest[8])):
-            readfile("{}/{}".format(home_env_var, files_of_interest[8]), "tcshrc-{}.txt".format(user_name))
-            print_good("Read .tcshrc file at {}/{}".format(home_env_var, files_of_interest[8]))
+            try:
+                readfile("{}/{}".format(home_env_var, files_of_interest[8]), "tcshrc-{}.txt".format(user_name))
+
+            except UnicodeDecodeError:
+                subprocess.run("cat {}/{} > tcshrc-{}.txt".format(home_env_var, files_of_interest[8], user_name), shell=True)
+
+            finally:
+                print_good("Read .tcshrc file at {}/{}".format(home_env_var, files_of_interest[8]))
 
         else:
             print_info("Did not find any .tcshrc file")
 
         # .zshrc
         if os.path.isfile("{}/{}".format(home_env_var, files_of_interest[9])):
-            readfile("{}/{}".format(home_env_var, files_of_interest[9]), "zshrc-{}.txt".format(user_name))
-            print_good("Read .zshrc file at {}/{}\n".format(home_env_var, files_of_interest[9]))
+            try:
+                readfile("{}/{}".format(home_env_var, files_of_interest[9]), "zshrc-{}.txt".format(user_name))
+
+            except UnicodeDecodeError:
+                subprocess.run("cat {}/{} > zshrc-{}.txt".format(home_env_var, files_of_interest[9], user_name), shell=True)
+
+            finally:
+                print_good("Read .zshrc file at {}/{}\n".format(home_env_var, files_of_interest[9]))
 
         else:
             print_info("Did not find any .zshrc file\n")

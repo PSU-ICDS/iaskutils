@@ -6,7 +6,7 @@ collector \- a simple script to collect information about your environment.
 collector [-h] [-c {gzip,bz2,xz,tar,zip}] [-d DIRECTORY] [-V] [--license]
 
 .SH DESCRIPTION
-Collector is a script that does exactly as its name implies; it collects things. Collector is used to retrieve important files and find important info inside a user\'s home directory, create a sharable archive file, and then educate the user how they can share it with a specific tech. For collector, it does not matter whether the above files exist or not; collector simply looks for them. Once they are found, collector adds them to an archive. Collector also runs a few shell commands on the user's home directory and saves that output to the archive as well. Once collector is done, it creates an archive name $USER_info.
+Collector is a script that does exactly as its name implies; it collects things. Collector is used to retrieve important files and find important info inside a user\'s home directory, create a sharable archive file, and then educate the user how they can share it with a specific tech. For collector, it does not matter whether the above files exist or not; collector simply looks for them. Once they are found, collector adds them to an archive. Collector also runs a few shell commands on the user's home directory and saves that output to the archive as well. Once collector is done, it creates an archive named $USER-info.
 
 Here is the list of files that collector searches for:
 .nr step 1 1
@@ -86,37 +86,37 @@ Print help info.
 .BI "collector"
 .TP
 .PP
-Execute collector and save the zip archive to $HOME/scratch/$USER_info.zip.
+Execute collector and save the zip archive to $HOME/scratch/$USER-info.zip.
 
 .TP
 .BI "collector -c gzip"
 .TP
 .PP
-Execute collector and save the gzip archive to $HOME/scratch/$USER_info.tar.gz.
+Execute collector and save the gzip archive to $HOME/scratch/$USER-info.tar.gz.
 
 .TP
 .BI "collector -c bz2"
 .TP
 .PP
-Execute collector and save the bz2 archive to $HOME/scratch/$USER_info.tar.bz2.
+Execute collector and save the bz2 archive to $HOME/scratch/$USER-info.tar.bz2.
 
 .TP
 .BI "collector -c xz"
 .TP
 .PP
-Execute collector and save the xz archive to $HOME/scratch/$USER_info.tar.xz.
+Execute collector and save the xz archive to $HOME/scratch/$USER-info.tar.xz.
 
 .TP
 .BI "collector -c tar"
 .TP
 .PP
-Execute collector and save the tar archive to $HOME/scratch/$USER_info.tar.
+Execute collector and save the tar archive to $HOME/scratch/$USER-info.tar.
 
 .TP
 .BI "collector -c gzip -d ~/work"
 .TP
 .PP
-Execute collector and save the gzip archive to $HOME/work/$USER_info.tar.gz.
+Execute collector and save the gzip archive to $HOME/work/$USER-info.tar.gz.
 
 .SH BUGS
 No known bugs. If you encounter a bug using this script, please open an issue at https://github.com/ICDS-Roar/iaskutils.
