@@ -210,7 +210,13 @@ def collector(compression, directory, version, license):
         # Change into home directory and gather info about environment
         output_dir = os.getcwd()
         os.chdir(home_env_var)
-        commands = ["check_aci_storage_quota", "ls -lha", "du -h --max-depth=1", "env"]
+
+        # Original block, commented out until check_aci_storage_quota script is to have a known
+        # fix on the Roar system.
+        # commands = ["check_aci_storage_quota", "ls -lha", "du -h --max-depth=1", "env"]
+
+        # New block until check_aci_storage_quota is fixed on Roar.
+        commands = ["ls -lha", "du -h --max-depth=1", "env"]
 
         bar = Bar("Collecting info on environment", max=len(commands))
         for command in commands:
