@@ -162,11 +162,13 @@ def gathero(job, name, compression, directory, version, license):
         if len(user_id) != 0:
             for user in user_id:
                 fout = open("{}-info.txt".format(user), "wt")
-                # Run account_quota_check
-                account_quota_check = subprocess.run(["account_quota_check", "{}".format(user)], 
-                                                        capture_output=True, text=True)
-                fout.write("account_quota_check {}\n".format(user))
-                fout.write(str(account_quota_check.stdout) + "\n\n")
+                # Block is commented out until account_quota_check is confirmed to
+                # be fixed on the Roar system.
+                # # Run account_quota_check
+                # account_quota_check = subprocess.run(["account_quota_check", "{}".format(user)], 
+                #                                         capture_output=True, text=True)
+                # fout.write("account_quota_check {}\n".format(user))
+                # fout.write(str(account_quota_check.stdout) + "\n\n")
 
                 # Run qstat
                 qstat = subprocess.run(["qstat", "-u", "{}".format(user)], 
